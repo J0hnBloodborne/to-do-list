@@ -299,43 +299,76 @@ body {
   border-color: #1f2733;
 }
 
-.theme-toggle .thumb {
+.theme-toggle .thumb { /* base thumb (white in light) */
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 1px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ffcf55 0%, #f4a300 60%, #eb8f00 100%);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .35), 0 0 0 1px rgba(0, 0, 0, .25);
+  background: #ffffff; /* full white in light mode */
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  transition: transform .38s cubic-bezier(.65, .05, .36, 1), background .4s;
-  color: #f59e0b;
+  transition: transform .38s cubic-bezier(.65,.05,.36,1), background .4s;
   overflow: hidden;
 }
 
-.theme-toggle .thumb::before {
+.theme-toggle .thumb::before { /* sun core */
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff8c9 0%, #ffe156 55%, #ffc21a 100%);
+  box-shadow: 0 0 6px 2px #ffd84f99;
+  z-index: 2;
+}
+
+.theme-toggle .thumb::after { /* sun rays ring */
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 65% 35%, rgba(0,0,0,.15) 0 30%, transparent 31%);
-  mix-blend-mode: multiply;
-  opacity: .4;
-  transition: opacity .4s;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,193,7,0) 34%, rgba(255,193,7,.8) 35% 52%, rgba(255,193,7,0) 53%),
+    repeating-conic-gradient(from 0deg,
+      rgba(255,193,7,.95) 0deg 6deg,
+      rgba(255,193,7,0) 6deg 18deg);
+  filter: blur(.4px);
+  opacity: .9;
+  z-index: 1;
 }
 
-.dark .theme-toggle .thumb {
-  transform: translateX(36px);
-  background: radial-gradient(circle at 30% 30%, #ffe9b3 0%, #d9dff2 65%, #b0c0e0 100%);
-  color: #93c5fd;
+.dark .theme-toggle .thumb { /* dark mode base (full dark) */
+  transform: translateX(38px);
+  background: #141d29; /* full dark */
+  box-shadow: 0 2px 5px rgba(0,0,0,.4);
 }
 
-.dark .theme-toggle . thumb::before {
-  opacity: 1;
-  background: radial-gradient(circle at 75% 30%, transparent 0 55%, rgba(0,0,0,.4) 56% 100%), radial-gradient(circle at 30% 70%, rgba(0,0,0,.35) 0 40%, transparent 41%);
+.dark .theme-toggle .thumb::before { /* moon disk */
+  width: 22px;
+  height: 22px;
+  background: #ffffff;
+  box-shadow: 0 0 4px 1px #ffffff22;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* allow overlay to partially cover */
+}
+
+.dark .theme-toggle .thumb::after { /* shadow to carve crescent */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  width: 16px; /* slightly smaller for cleaner crescent */
+  height: 16px;
+  border-radius: 50%;
+  background: #141d29;
+  z-index: 2; /* sits above moon disk */
 }
 
 .theme-toggle:focus-visible .track {
