@@ -94,6 +94,18 @@
         }
     }
 
+    // Click sound effect using external file
+    const clickSound = new Audio('src/click.wav');
+    clickSound.preload = 'auto';
+    function playClick() {
+        try {
+            const a = clickSound.cloneNode();
+            a.volume = 0.6;
+            a.play().catch(()=>{});
+        } catch(e) { /* ignore */ }
+    }
+    document.addEventListener('click', playClick, true);
+
     document.getElementById('addTaskButton')?.addEventListener('click', addTask);
     document.getElementById('taskInput')?.addEventListener('keyup', e => { if (e.key === 'Enter') addTask(); }); // updated ID
     document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
